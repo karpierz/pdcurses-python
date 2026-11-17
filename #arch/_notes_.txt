@@ -1,0 +1,11 @@
+git clone --recurse-submodules https://github.com/karpierz/pdcurses-python.git
+
+Based on: https://github.com/wmcbrine/PDCurses.git
+commit: e9af89a7e7fc69d5b194b5432df57eefb6d83505
+git submodule add https://github.com/wmcbrine/PDCurses.git src/PDCurses
+git submodule update --remote --merge
+
+# Old (windows-curses)
+# Based on: https://github.com/zephyrproject-rtos/windows-curses
+# commit: 5c62af03e9a05e3a3ae8c8354c1234b772dcf4b0
+# git submodule add https://github.com/zephyrproject-rtos/PDCurses.git src/PDCurses

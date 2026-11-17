@@ -1,0 +1,145 @@
+# Copyright (c) 2026 Adam Karpierz
+# SPDX-License-Identifier: PSF-2.0
+
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [ "setuptools>=81.0.0", "packaging>=26.3.0" ]
+
+[project]
+name = "pdcurses-python"
+version = "2.4.3b1"
+description = "Support for the standard curses module on Windows."
+keywords = [ "curses", "pdcurses", "ncurses" ]
+license = "PSF-2.0"
+license-files = [ "LICENSE" ]
+authors = [
+  { name  = "Adam Karpierz", email = "adam@karpierz.net" },
+]
+maintainers = [
+  { name  = "Adam Karpierz", email = "adam@karpierz.net" },
+]
+urls.Homepage      = "https://pypi.org/project/pdcurses-python/"
+urls.Documentation = "https://karpierz.github.io/pdcurses-python/"
+urls.History       = "https://karpierz.github.io/pdcurses-python/CHANGES.html"
+urls.Download      = "https://pypi.org/project/pdcurses-python/"
+urls.Repository    = "https://github.com/karpierz/pdcurses-python"
+urls.Tracker       = "https://github.com/karpierz/pdcurses-python/issues"
+urls.Sponsoring    = "https://www.paypal.com/donate/?hosted_button_id=FX8L7CJUGLW7S"
+requires-python = ">=3.10.0,<4.0.0"
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console :: Curses",
+  "Environment :: Win32 (MS Windows)",
+  "Intended Audience :: Developers",
+  "Natural Language :: Polish",
+  "Operating System :: Microsoft :: Windows",
+  "Programming Language :: C",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: 3.15",
+  "Programming Language :: Python :: 3.16",
+  "Programming Language :: Python :: Implementation :: CPython",
+  # "Programming Language :: Python :: Implementation :: PyPy",
+  # "Programming Language :: Python :: Implementation :: GraalPy",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Typing :: Typed",
+]
+dynamic = [ "readme" ]
+dependencies = [
+  # mandatory
+  # others
+]
+
+[dependency-groups]
+base = [
+  "pip>=26.3.0; platform_python_implementation!='GraalVM'",
+  "pip>=26.1.2; platform_python_implementation=='GraalVM' and python_version~='3.13.0'",
+  "pip>=24.3.1; platform_python_implementation=='GraalVM' and python_version~='3.12.0'",
+  "setuptools>=81.0.0",
+]
+test = [
+  { include-group = "base" },
+  "deepdiff~=9.0.0",
+  "rich>=15.0.0",
+]
+coverage = [
+  { include-group = "test" },
+  "coverage>=7.17.2",
+  "covdefaults>=2.3.0",
+  "diff-cover>=11.0.1",
+]
+docs = [
+  { include-group = "base" },
+  "pkg-about>=2.5.0",
+  "sphinx>=9.0.4",
+  "pygments_ansi_color>=0.3.0", # fix sphinx load error
+  "roman_numerals>=4.1.0",      #         -||-
+  "myst-parser>=5.1.0",
+  "sphinx-autodoc-typehints>=3.6.1",
+  "sphinx-tabs>=3.5.0",
+  "sphinx-prompt>=1.10.2",
+  "sphinx-copybutton>=0.5.2",
+  "sphinxcontrib-spelling>=8.0.2",
+  "sphinx-lint>=1.0.2",
+  "restructuredtext-lint>=2.0.2",
+  "nbsphinx>=0.9.8",
+]
+build-py = [
+  { include-group = "test" },
+  "build>=1.6.1",
+]
+build = [
+  { include-group = "test" },
+  "build>=1.6.1",
+  "twine>=7.0.0",
+]
+publish = [
+  "twine>=7.0.0",
+]
+
+[tool.setuptools]
+dynamic.readme = { file = [ "README.rst" ], content-type = "text/x-rst; charset=UTF-8" }
+include-package-data = true
+platforms = [ "win32" ]
+zip-safe = false
+
+exclude-package-data."*" = [
+  "*.c",   "*.h",
+  "*.cpp", "*.hpp",
+  "*.cxx", "*.hxx",
+  "*.pyx", "*.pxd",
+]
+
+[tool.coverage]
+# run
+run.source = [
+  "tests",
+]
+run.omit = [
+  "**/tests/tman_*.py",
+]
+run.branch = true
+run.plugins = [ "covdefaults" ]
+# report
+report.exclude_also = [
+  # Regexes
+  # Have to re-enable the standard pragma
+  '^\s*if\s+self\.debug\s*:',
+  '^\s*if\s+__debug__\s*:',
+  '^\s*if\s+(0|False|None)\s*:',
+  '''if\s+__name__.*\s*==\s*['"]__main__['"]\s*:''',
+  '^\s*@unittest\.skip\s*\(',
+  '''^\s*@unittest\.skipIf\s*\(\s*sys\.platform\.startswith\s*\(\s*['"]win['"]\s*\)''',
+  '^\s*@unittest\.skipIf\s*\(\s*is_windows\s*,',
+  '^\s*@unittest\.skipIf\s*\(\s*is_cpython\s*,',
+  '\s*if\s+typing\.TYPE_CHECKING\s*:',
+]
+report.omit = [
+  "tests/run.py",
+]
+report.skip_covered = false
