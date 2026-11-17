@@ -71,8 +71,8 @@ License
 =======
 
   | |copyright|
-  | Licensed under the zlib/libpng License
-  | https://opensource.org/license/zlib
+  | Licensed under the Python Software Foundation License 2.0
+  | https://spdx.org/licenses/PSF-2.0.html
   | Please refer to the accompanying LICENSE file.
 
 Authors
